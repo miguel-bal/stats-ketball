@@ -1,2 +1,2 @@
 # stats-ketball
-Python program to calculate your basketball stats
+Track your performance in basketball and calculate your statistics using this program.
