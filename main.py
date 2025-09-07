@@ -10,20 +10,22 @@ root = Tk()
 root.title("Stats-ketball")
 
 
-def show_frame(frame):
-    frame.tkraise()
+def show_frame(frame_name):
+    frames[frame_name].tkraise()
 
-# Create frames
-stats_entry_frame = Frame(root)
-stats_viewer_frame = Frame(root)
-landing_frame = create_landing_frame(root, show_frame, stats_entry_frame, stats_viewer_frame)
-stats_entry_frame = create_stats_entry_frame(root, show_frame, landing_frame, stats_viewer_frame)
-stats_viewer_frame = create_stats_viewer_frame(root, show_frame, landing_frame, stats_entry_frame)
+# Create all frames and store them in a dictionary
+frames = {}
 
-for frame in (landing_frame, stats_entry_frame, stats_viewer_frame):
+frames['stats_entry'] = create_stats_entry_frame(root, show_frame)
+frames['stats_viewer'] = create_stats_viewer_frame(root, show_frame)
+frames['landing'] = create_landing_frame(root, show_frame)
+
+# Add all frames to the grid
+for frame in frames.values():
     frame.grid(row=0, column=0, sticky='nsew')
 
-show_frame(landing_frame)
+# Show the landing frame first
+show_frame('landing')
 
 # Execute Tkinter
 root.mainloop()

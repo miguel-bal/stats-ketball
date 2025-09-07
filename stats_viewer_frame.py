@@ -1,7 +1,7 @@
 from tkinter import *
 import csv
 
-def create_stats_viewer_frame(root, show_frame, landing_frame, stats_entry_frame):
+def create_stats_viewer_frame(root, show_frame):
     frame = Frame(root)
 
     Label(frame, text="Saved Stats", font=("Arial", 14)).pack(pady=10)
@@ -19,8 +19,8 @@ def create_stats_viewer_frame(root, show_frame, landing_frame, stats_entry_frame
             stats_list.insert(END, "No stats found.")
 
     Button(frame, text="Reload", command=load_stats).pack()
-    Button(frame, text="Home", command=lambda: show_frame(landing_frame)).pack(pady=5)
-    Button(frame, text="Enter Stats", command=lambda: show_frame(stats_entry_frame)).pack()
+    Button(frame, text="Home", command=lambda: show_frame('landing')).pack(pady=5)
+    Button(frame, text="Enter Stats", command=lambda: show_frame('stats_entry')).pack()
 
     # Load stats initially
     load_stats()

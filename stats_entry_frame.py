@@ -1,7 +1,7 @@
 from tkinter import *
 import csv
 
-def create_stats_entry_frame(root, show_frame, landing_frame, stats_viewer_frame):
+def create_stats_entry_frame(root, show_frame):
     frame = Frame(root)
 
     Label(frame, text="Enter Player Stats", font=("Arial", 14)).grid(column=0, row=0, columnspan=2, pady=10)
@@ -30,7 +30,6 @@ def create_stats_entry_frame(root, show_frame, landing_frame, stats_viewer_frame
         assists_entry.delete(0, END)
 
     Button(frame, text="Save Stats", command=save_stats).grid(column=1, row=4, pady=10)
-    Button(frame, text="Home", command=lambda: show_frame(landing_frame)).grid(column=0, row=5, pady=5)
-    Button(frame, text="View Stats", command=lambda: show_frame(stats_viewer_frame)).grid(column=1, row=5, pady=5)
+    Button(frame, text="Home", command=lambda: show_frame('landing')).grid(column=1, row=5, pady=5)
 
     return frame
