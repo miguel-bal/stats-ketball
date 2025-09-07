@@ -5,7 +5,7 @@ import csv
 def create_stats_viewer_frame(root, show_frame):
     frame = Frame(root)
 
-    Label(frame, text="View Stats", font=("Arial", 14)).pack(pady=10)
+    Label(frame, text="View Average Stats", font=("Arial", 14)).pack(pady=10)
 
     # Table frame for grid layout
     table_frame = Frame(frame)
@@ -27,17 +27,31 @@ def create_stats_viewer_frame(root, show_frame):
                 with open(file_path, newline='') as file:
                     reader = csv.reader(file)
                     next(reader, None)  # Skip the header row
-                    for row_idx, row in enumerate(reader):
+                    points_sum = 0
+                    rebounds_sum = 0
+                    assists_sum = 0
+                    count = 0
+                    for row in reader:
                         if len(row) >= 3:
-                            Label(table_frame, text="Points:", anchor="e", width=10).grid(row=row_idx*3, column=0, sticky="e")
-                            Label(table_frame, text=row[0], anchor="w", width=20).grid(row=row_idx*3, column=1, sticky="w")
-                            Label(table_frame, text="Rebounds:", anchor="e", width=10).grid(row=row_idx*3+1, column=0, sticky="e")
-                            Label(table_frame, text=row[1], anchor="w", width=20).grid(row=row_idx*3+1, column=1, sticky="w")
-                            Label(table_frame, text="Assists:", anchor="e", width=10).grid(row=row_idx*3+2, column=0, sticky="e")
-                            Label(table_frame, text=row[2], anchor="w", width=20).grid(row=row_idx*3+2, column=1, sticky="w")
-                        else:
-                            Label(table_frame, text="Incomplete row:", anchor="e", width=15).grid(row=row_idx*3, column=0, sticky="e")
-                            Label(table_frame, text=str(row), anchor="w", width=30).grid(row=row_idx*3, column=1, sticky="w")
+                            try:
+                                points_sum += float(row[0])
+                                rebounds_sum += float(row[1])
+                                assists_sum += float(row[2])
+                                count += 1
+                            except ValueError:
+                                continue  # Skip rows with non-numeric data
+                    if count > 0:
+                        avg_points = points_sum / count
+                        avg_rebounds = rebounds_sum / count
+                        avg_assists = assists_sum / count
+                        Label(table_frame, text="Points:", anchor="e", width=15).grid(row=0, column=0, sticky="e")
+                        Label(table_frame, text=f"{avg_points:.2f}", anchor="w", width=20).grid(row=0, column=1, sticky="w")
+                        Label(table_frame, text="Rebounds:", anchor="e", width=15).grid(row=1, column=0, sticky="e")
+                        Label(table_frame, text=f"{avg_rebounds:.2f}", anchor="w", width=20).grid(row=1, column=1, sticky="w")
+                        Label(table_frame, text="Assists:", anchor="e", width=15).grid(row=2, column=0, sticky="e")
+                        Label(table_frame, text=f"{avg_assists:.2f}", anchor="w", width=20).grid(row=2, column=1, sticky="w")
+                    else:
+                        Label(table_frame, text="No valid data found.").grid(row=0, column=0, columnspan=2)
             except Exception as e:
                 Label(table_frame, text=f"Error loading file: {e}").grid(row=0, column=0, columnspan=2)
         else:

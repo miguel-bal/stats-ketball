@@ -8,7 +8,7 @@ from stats_viewer_frame import create_stats_viewer_frame
 
 root = Tk()
 root.title("Stats-ketball")
-
+root.resizable(False, False)
 
 def show_frame(frame_name):
     frames[frame_name].tkraise()
