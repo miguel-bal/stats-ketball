@@ -1,55 +1,29 @@
 # Import Module
 from tkinter import *
 import csv
+from landing_frame import create_landing_frame
+from stats_entry_frame import create_stats_entry_frame
+from stats_viewer_frame import create_stats_viewer_frame
 
 
-# create root window
 root = Tk()
-
-# Function to save stats to CSV
-def save_stats():
-    points = points_entry.get()
-    rebounds = rebounds_entry.get()
-    assists = assists_entry.get()
-    with open('stats.csv', mode='a', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow([points, rebounds, assists])
-
-# root window title and dimension
 root.title("Stats-ketball")
-# Set geometry (widthxheight)
-root.geometry('350x200')
 
 
-# adding a label to the root window
-points_label = Label(root, text = "Points")
-points_label.grid(column=0, row=0)
+def show_frame(frame):
+    frame.tkraise()
 
-# adding Entry Field
-points_entry = Entry(root, width=10)
-points_entry.grid(column=1, row=0)
+# Create frames
+stats_entry_frame = Frame(root)
+stats_viewer_frame = Frame(root)
+landing_frame = create_landing_frame(root, show_frame, stats_entry_frame, stats_viewer_frame)
+stats_entry_frame = create_stats_entry_frame(root, show_frame, landing_frame, stats_viewer_frame)
+stats_viewer_frame = create_stats_viewer_frame(root, show_frame, landing_frame, stats_entry_frame)
 
-# adding a label to the root window
-assists_label = Label(root, text = "Rebounds")
-assists_label.grid(column=0, row=1)
+for frame in (landing_frame, stats_entry_frame, stats_viewer_frame):
+    frame.grid(row=0, column=0, sticky='nsew')
 
-# adding Entry Field
-rebounds_entry = Entry(root, width=10)
-rebounds_entry.grid(column=1, row=1)
+show_frame(landing_frame)
 
-# adding a label to the root window
-assists_label = Label(root, text = "Assists")
-assists_label.grid(column=0, row=2)
-
-# adding Entry Field
-assists_entry = Entry(root, width=10)
-assists_entry.grid(column=1, row=2)
-
-# Save Button
-save_button = Button(root, text="Save stats", command=save_stats)
-save_button.grid(column=1, row=3, pady=10)
-
-
-# all widgets will be here
 # Execute Tkinter
 root.mainloop()
