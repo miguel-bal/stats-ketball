@@ -44,10 +44,10 @@ def create_stats_entry_frame(root, show_frame):
         rebounds = rebounds_entry.get().strip()
         assists = assists_entry.get().strip()
         if not points or not rebounds or not assists:
-            messagebox.showerror("Input Error", "All fields must be filled in before saving.")
+            status_var.set("Input Error: All fields must be filled in before saving.")
             return
         if not points.isdigit() or not rebounds.isdigit() or not assists.isdigit():
-            messagebox.showerror("Input Error", "All fields must be numeric values.")
+            status_var.set("Input Error: All fields must be numeric values.")
             return
         with open(loaded_file['path'], mode='a', newline='') as file:
             writer = csv.writer(file)
@@ -55,6 +55,7 @@ def create_stats_entry_frame(root, show_frame):
         points_entry.delete(0, END)
         rebounds_entry.delete(0, END)
         assists_entry.delete(0, END)
+        status_var.set("Stats saved successfully!")
     
     Button(frame, text="Create New File", command=lambda: status_var.set("Creating new file: stats.csv")).grid(column=1, row=6, pady=10)
     Button(frame, text="Load Existing File", command=load_stats_file).grid(column=1, row=7, pady=10)
