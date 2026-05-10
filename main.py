@@ -1,12 +1,29 @@
 # Import Module
-from tkinter import *
+from tkinter import Tk
 import csv
 from landing_frame import create_landing_frame
 from stats_entry_frame import create_stats_entry_frame
 from stats_viewer_frame import create_stats_viewer_frame
 
+import os
 
 root = Tk()
+
+example_file = 'stats-test.csv'
+
+# Function to save stats to CSV
+def save_stats():
+    file_exists = os.path.isfile(example_file)
+    write_header = not file_exists or os.path.getsize('stats-test.csv') == 0
+
+    with open(example_file, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow('')
+        if write_header:
+            writer.writerow(['Points', 'Rebounds', 'Assists'])
+
+
+# root window title and dimension
 root.title("Stats-ketball")
 root.resizable(False, False)
 

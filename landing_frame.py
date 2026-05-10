@@ -1,4 +1,4 @@
-from tkinter import *
+from tkinter import Frame, Label, Button
 
 def create_landing_frame(root, show_frame):
     frame = Frame(root)
