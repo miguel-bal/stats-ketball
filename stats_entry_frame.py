@@ -4,25 +4,27 @@ import csv
 
 def create_stats_entry_frame(root, show_frame):
     frame = Frame(root)
+    inner = Frame(frame)
+    inner.place(relx=0.5, rely=0.5, anchor='center')
 
-    Label(frame, text="Enter Player Stats", font=("Arial", 14)).grid(column=0, row=0, columnspan=3, pady=10)
+    Label(inner, text="Enter Player Stats", font=("Arial", 14)).grid(column=0, row=0, columnspan=3, pady=10)
 
     # Subtitle label for status
     status_var = StringVar()
     status_var.set("Creating new file: stats.csv")
-    status_label = Label(frame, textvariable=status_var, font=("Arial", 10), fg="gray")
+    status_label = Label(inner, textvariable=status_var, font=("Arial", 10), fg="gray")
     status_label.grid(column=0, row=1, columnspan=3, pady=(0, 10))
 
-    Label(frame, text="Points").grid(column=0, row=2, sticky='e')
-    points_entry = Entry(frame, width=10)
+    Label(inner, text="Points").grid(column=0, row=2, sticky='e')
+    points_entry = Entry(inner, width=10)
     points_entry.grid(column=1, row=2)
 
-    Label(frame, text="Rebounds").grid(column=0, row=3, sticky='e')
-    rebounds_entry = Entry(frame, width=10)
+    Label(inner, text="Rebounds").grid(column=0, row=3, sticky='e')
+    rebounds_entry = Entry(inner, width=10)
     rebounds_entry.grid(column=1, row=3)
 
-    Label(frame, text="Assists").grid(column=0, row=4, sticky='e')
-    assists_entry = Entry(frame, width=10)
+    Label(inner, text="Assists").grid(column=0, row=4, sticky='e')
+    assists_entry = Entry(inner, width=10)
     assists_entry.grid(column=1, row=4)
 
     # Variable to store the currently loaded file path
@@ -56,10 +58,10 @@ def create_stats_entry_frame(root, show_frame):
         rebounds_entry.delete(0, END)
         assists_entry.delete(0, END)
         status_var.set("Stats saved successfully!")
-    
-    Button(frame, text="Create New File", command=lambda: status_var.set("Creating new file: stats.csv")).grid(column=1, row=6, pady=10)
-    Button(frame, text="Load Existing File", command=load_stats_file).grid(column=1, row=7, pady=10)
-    Button(frame, text="Save Stats", command=save_stats).grid(column=1, row=8, pady=10)
-    Button(frame, text="Home", command=lambda: show_frame('landing')).grid(column=1, row=9, pady=5)
+
+    Button(inner, text="Create New File", command=lambda: status_var.set("Creating new file: stats.csv")).grid(column=1, row=6, pady=10)
+    Button(inner, text="Load Existing File", command=load_stats_file).grid(column=1, row=7, pady=10)
+    Button(inner, text="Save Stats", command=save_stats).grid(column=1, row=8, pady=10)
+    Button(inner, text="Home", command=lambda: show_frame('landing')).grid(column=1, row=9, pady=5)
 
     return frame

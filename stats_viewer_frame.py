@@ -4,11 +4,13 @@ import csv
 
 def create_stats_viewer_frame(root, show_frame):
     frame = Frame(root)
+    inner = Frame(frame)
+    inner.place(relx=0.5, rely=0.5, anchor='center')
 
-    Label(frame, text="View Average Stats", font=("Arial", 14)).pack(pady=10)
+    Label(inner, text="View Average Stats", font=("Arial", 14)).pack(pady=10)
 
     # Table frame for grid layout
-    table_frame = Frame(frame)
+    table_frame = Frame(inner)
     table_frame.pack(pady=5)
 
     # Function to clear the table
@@ -57,8 +59,8 @@ def create_stats_viewer_frame(root, show_frame):
         else:
             Label(table_frame, text="No file selected.").grid(row=0, column=0, columnspan=2)
 
-    Button(frame, text="Load File", command=load_file).pack()
-    Button(frame, text="Home", command=lambda: show_frame('landing')).pack(pady=5)
-    Button(frame, text="Enter Stats", command=lambda: show_frame('stats_entry')).pack()
+    Button(inner, text="Load File", command=load_file).pack()
+    Button(inner, text="Home", command=lambda: show_frame('landing')).pack(pady=5)
+    Button(inner, text="Enter Stats", command=lambda: show_frame('stats_entry')).pack()
 
     return frame

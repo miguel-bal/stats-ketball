@@ -25,7 +25,10 @@ def save_stats():
 
 # root window title and dimension
 root.title("Stats-ketball")
+root.geometry("500x450")
 root.resizable(False, False)
+root.grid_rowconfigure(0, weight=1)
+root.grid_columnconfigure(0, weight=1)
 
 def show_frame(frame_name):
     frames[frame_name].tkraise()
